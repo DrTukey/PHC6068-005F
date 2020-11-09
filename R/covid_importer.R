@@ -81,7 +81,7 @@ pull_covid_data <- function(start_date, end_date, states=default.states, fields=
 df.filtered.1 <- pull_covid_data("2020-09-30", "2020-10-30")
 
 # Example 2
-df.filtered.2 <- pull_covid_data("2020-09-30", "2020-10-30", available_states, available_fields, limit=100)
+df.filtered.2 <- pull_covid_data("2020-09-30", "2020-10-30", available.states, available.fields, limit=100)
 
 # Example 3
 df.filtered.3 <- pull_covid_data("2020-01-01", "2020-10-30", states=c("FL", "TX", "CA"), fields=c("state", "new_case", "new_death", "tot_cases", "tot_death", "submission_date"), limit=100)
