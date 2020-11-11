@@ -4,6 +4,9 @@ This package can pull COVID-19 daily data from CDC.
 Install the package by running /inst/create_package.R.
 
 
+
+Usage examples:
+
 df_filtered_1 <- pull_covid_data("2020-09-30", "2020-10-30")
 
 df_filtered_2 <- pull_covid_data(start_date="2020-09-30", 
