@@ -96,7 +96,7 @@ format_covid_data <- function(df){
 #'
 #' @export
 pull_covid_data <- function(start_date, end_date,
-                            states = "default", fields = "default",
+                            states = NULL, fields = NULL,
                             consent_cases = TRUE, consent_deaths = TRUE, limit = 100000){
 
   if (is.null(fields)) fields <- data_fields$default_fields

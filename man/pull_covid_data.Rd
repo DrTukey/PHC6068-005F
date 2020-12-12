@@ -7,8 +7,8 @@
 pull_covid_data(
   start_date,
   end_date,
-  states = "default",
-  fields = "default",
+  states = NULL,
+  fields = NULL,
   consent_cases = TRUE,
   consent_deaths = TRUE,
   limit = 1e+05
