@@ -99,9 +99,9 @@ pull_covid_data <- function(start_date, end_date,
                             states = "default", fields = "default",
                             consent_cases = TRUE, consent_deaths = TRUE, limit = 100000){
 
-  if (fields == "default") fields <- data_fields$default_fields
-  if (states == "default") states <- data_fields$default_states
-
+  if (is.null(fields)) fields <- data_fields$default_fields
+  if (is.null(states)) states <- data_fields$default_states
+  
   url <- generate_url(start_date, end_date, states, fields,
                       consent_cases, consent_deaths, limit)
   df <- read.csv(url)
