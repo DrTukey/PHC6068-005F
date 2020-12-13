@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Dan Golden" />
+<meta name="author" content="Gerard Garvan, Dan Golden, Vineeth Kurnala" />
 
 <meta name="date" content="2020-12-13" />
 
@@ -425,7 +425,7 @@ summary {
 
 
 <h1 class="title toc-ignore">Covid Package</h1>
-<h4 class="author">Dan Golden</h4>
+<h4 class="author">Gerard Garvan, Dan Golden, Vineeth Kurnala</h4>
 <h4 class="date">12/13/2020</h4>
 
 </div>
@@ -433,21 +433,45 @@ summary {
 
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>This report will cover the three focuses of this described package: pulling COVID data from the CDC, presenting example summary plots, and performing time series analysis.</p>
+<p>This report will cover the three focuses of this described package:</p>
+<ul>
+<li>Retrieving COVID data from the CDC
+<ul>
+<li>pull_covid_data()</li>
+</ul></li>
+<li>Plotting historic cases and deaths
+<ul>
+<li>covid_cases_graph()</li>
+<li>covid_deaths_graph()</li>
+</ul></li>
+<li>Modeling future cases
+<ul>
+<li>covid_ts_forecast()</li>
+</ul></li>
+</ul>
 </div>
 <div id="centers-for-disease-control-and-prevention-data" class="section level2">
 <h2>Centers for Disease Control and Prevention Data</h2>
 <p>The Centers for Disease Control (CDC) makes COVID-19 case and death data available to the public. This data can be accessed via a URL that allows subsets of the large dataset to be downloaded. This service is provided by an application programming interface (API). The API allows public access to COVID-19 data in either CSV or JSON formats.</p>
-<p>A CSV is a standard format for storing data that uses comma separated values. Data fields are separated by commas thus identifying unique entries. JSON is a newer data format that is more flexible than csv. Data for this project will be retrieved in CSV format. The CSV will be read into an R dataframe for use in analysis.</p>
+<p>A CSV is a standard format for storing data that uses comma separated values. Data fields are separated by commas thus identifying unique entries. JSON is a newer data format that is more flexible than CSV and can handle less structured data. Data for this project will be retrieved in CSV format, and the CSV will be read into an R dataframe for use in analysis.</p>
 <p>The CDC data can be retrieved using three different methods. The first method is simply to download an entire CSV that contains all available data. The second method uses simple additions to the base URL that allow for a minimal amount of data subsetting. The third method, which is the method focused on in this report, is the use of query language within the URL to subset data.</p>
 <p>The API allowing access to CDC COVID-19 data is build using Socrata. The Socrata site includes the following definition of its service, “The Socrata Open Data API allows you to programmatically access a wealth of open data resources from governments, non-profits, and NGOs around the world.”</p>
 <p>Rather than downloading an entire dataset, or applying minimal subsetting, Socrata allows richer subsetting of COVID-19 data directly from the download URL. For example specific dataset fields can be selected, beginning and ending time periods can be defined, and data can be filtered to selected states.</p>
+<p>For this project a function was created that can dynamically generate a Socrata compliant URL to query data from the CDC API endpoint. The function generates a URL, retreives COVID-19 data from the URL and formats date fields as dates, and boolean fields as TRUE/FALSE.</p>
+<p>Socrata URLs use Socrata Query Language (SoQL) which is extremely similar to Structured Query Language (SQL), an ANSI and ISO industry standard. The primary SoQL commands used to query and filter COVID data are:</p>
+<ul>
+<li>query: allows multiple SoQL commands to be run together<br />
+</li>
+<li>select: subset columns from the available fields<br />
+</li>
+<li>where: subset rows from the available data<br />
+</li>
+<li>limit: specify a maximum amount of data to retrieve</li>
+</ul>
+<p>Additional details related to SoQL can be obtained here: <a href="https://dev.socrata.com/docs/queries/" class="uri">https://dev.socrata.com/docs/queries/</a></p>
+<div id="cdc-covid-data-description" class="section level3">
+<h3>CDC COVID DATA DESCRIPTION</h3>
 <table>
-<colgroup>
-<col width="20%" />
-<col width="33%" />
-<col width="45%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th>Field</th>
@@ -516,85 +540,77 @@ summary {
 <td>number</td>
 <td>Number of new probable deaths</td>
 </tr>
-<tr class="odd">
-<td>created_at</td>
-<td>timestamp</td>
-<td>Date and time record was created</td>
-</tr>
-<tr class="even">
-<td>consent_cases</td>
-<td>text</td>
-<td>Boolean to determine if confirmed and probable cases are included</td>
-</tr>
-<tr class="odd">
-<td>consent_deaths</td>
-<td>text</td>
-<td>Boolean to determine if confirmed and probable deaths are included</td>
-</tr>
 </tbody>
 </table>
-<ul>
-<li>United States COVID-19 Cases and Deaths by State over Time: <a href="https://dev.socrata.com/foundry/data.cdc.gov/9mfq-cb36" class="uri">https://dev.socrata.com/foundry/data.cdc.gov/9mfq-cb36</a></li>
-</ul>
+<p>Source: United States COVID-19 Cases and Deaths by State over Time <a href="https://dev.socrata.com/foundry/data.cdc.gov/9mfq-cb36" class="uri">https://dev.socrata.com/foundry/data.cdc.gov/9mfq-cb36</a></p>
+</div>
 </div>
 <div id="supplemental-datasets" class="section level2">
 <h2>Supplemental Datasets</h2>
 <p>Three additional datasets are included in the package. All three datasets were obtained from publicly accessible government sites. The datasets are included to support additional analysis and data aggregate to better understand the impact of COVID are various populations.</p>
 <ul>
-<li>SAHIE Insurance Data: <a href="https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html" class="uri">https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html</a></li>
-<li>Demographic Data (Race and Ethnicity): <a href="https://covid19.census.gov/datasets/race-and-ethnicity-states/data" class="uri">https://covid19.census.gov/datasets/race-and-ethnicity-states/data</a></li>
-<li>Demographic Data (Age and Sex): <a href="https://covid19.census.gov/datasets/population-by-age-and-sex-states" class="uri">https://covid19.census.gov/datasets/population-by-age-and-sex-states</a></li>
+<li>SAHIE Insurance Data
+<ul>
+<li>Census Bureau Description: The U.S. Census Bureau’s Small Area Health Insurance Estimates program produces the only source of data for single-year estimates of health insurance coverage status for all counties in the U.S. by selected economic and demographic characteristics.</li>
+<li><a href="https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html" class="uri">https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html</a></li>
+</ul></li>
+<li>Demographic Data (Race and Ethnicity)
+<ul>
+<li>Description: Data from the American Community Survey (ACS) which contains race and ethnicity population data by state. Data is also available at the county level but was included only at the state level to parity match COVID-19 data.</li>
+<li><a href="https://covid19.census.gov/datasets/race-and-ethnicity-states" class="uri">https://covid19.census.gov/datasets/race-and-ethnicity-states</a></li>
+</ul></li>
+<li>Demographic Data (Age and Sex)
+<ul>
+<li>Description: Data from the American Community Survey (ACS) which contains age and sex population data by state. Data is also available at the county level but was included only at the state level to parity match COVID-19 data.</li>
+<li>2https://covid19.census.gov/datasets/population-by-age-and-sex-states</li>
+</ul></li>
 </ul>
-<pre class="r"><code>pull_covid_data(start_date=&quot;2020-06-01&quot;, end_date=&quot;2020-07-01&quot;)</code></pre>
-<pre><code>##       submission_date state tot_cases conf_cases prob_cases new_case pnew_case
-##    1:      2020-06-01    AK       467         NA         NA        7         0
-##    2:      2020-06-01    AL     18438      18150        288      193        -1
-##    3:      2020-06-01    AR      7443         NA         NA      190         0
-##    4:      2020-06-01    AZ     20123      20123          0      187         0
-##    5:      2020-06-01    CA    113006         NA         NA     2423         0
-##   ---                                                                         
-## 1546:      2020-07-01    VT      1210         NA         NA        2         0
-## 1547:      2020-07-01    WA     33435         NA         NA      611         0
-## 1548:      2020-07-01    WI     32225      29199       3026      563        23
-## 1549:      2020-07-01    WV      2979       2877        102       74         1
-## 1550:      2020-07-01    WY      1514       1203        311       27         8
-##       tot_death conf_death prob_death new_death pnew_death
-##    1:        10         NA         NA         0          0
-##    2:       646        644          2        14          0
-##    3:       133         NA         NA         0          0
-##    4:       917        917          0        11          0
-##    5:      4251         NA         NA        38          0
-##   ---                                                     
-## 1546:        56         NA         NA         0          0
-## 1547:      1339         NA         NA         7          0
-## 1548:       793        786          7         2          0
-## 1549:        93         NA         NA         0          0
-## 1550:        20         20          0         0          0</code></pre>
-<pre class="r"><code>pull_covid_data(start_date=&quot;2020-06-01&quot;, end_date=&quot;2020-07-01&quot;)</code></pre>
-<pre><code>##       submission_date state tot_cases conf_cases prob_cases new_case pnew_case
-##    1:      2020-06-01    AK       467         NA         NA        7         0
-##    2:      2020-06-01    AL     18438      18150        288      193        -1
-##    3:      2020-06-01    AR      7443         NA         NA      190         0
-##    4:      2020-06-01    AZ     20123      20123          0      187         0
-##    5:      2020-06-01    CA    113006         NA         NA     2423         0
-##   ---                                                                         
-## 1546:      2020-07-01    VT      1210         NA         NA        2         0
-## 1547:      2020-07-01    WA     33435         NA         NA      611         0
-## 1548:      2020-07-01    WI     32225      29199       3026      563        23
-## 1549:      2020-07-01    WV      2979       2877        102       74         1
-## 1550:      2020-07-01    WY      1514       1203        311       27         8
-##       tot_death conf_death prob_death new_death pnew_death
-##    1:        10         NA         NA         0          0
-##    2:       646        644          2        14          0
-##    3:       133         NA         NA         0          0
-##    4:       917        917          0        11          0
-##    5:      4251         NA         NA        38          0
-##   ---                                                     
-## 1546:        56         NA         NA         0          0
-## 1547:      1339         NA         NA         7          0
-## 1548:       793        786          7         2          0
-## 1549:        93         NA         NA         0          0
-## 1550:        20         20          0         0          0</code></pre>
+</div>
+<div id="retrieve-data" class="section level2">
+<h2>Retrieve Data</h2>
+<pre class="r"><code># Example using dates
+pull_covid_data(start_date=&quot;2020-06-01&quot;, end_date=&quot;2020-07-01&quot;, limit=5)</code></pre>
+<pre><code>##    submission_date state tot_cases conf_cases prob_cases new_case pnew_case
+## 1:      2020-06-01    AK       467         NA         NA        7         0
+## 2:      2020-06-01    AL     18438      18150        288      193        -1
+## 3:      2020-06-01    AR      7443         NA         NA      190         0
+## 4:      2020-06-01    AZ     20123      20123          0      187         0
+## 5:      2020-06-01    CA    113006         NA         NA     2423         0
+##    tot_death conf_death prob_death new_death pnew_death
+## 1:        10         NA         NA         0          0
+## 2:       646        644          2        14          0
+## 3:       133         NA         NA         0          0
+## 4:       917        917          0        11          0
+## 5:      4251         NA         NA        38          0</code></pre>
+<pre class="r"><code># Example using dates and states
+pull_covid_data(start_date=&quot;2020-06-01&quot;, end_date=&quot;2020-07-01&quot;, states=c(&quot;FL&quot;, &quot;GA&quot;, &quot;NY&quot;), limit=5)</code></pre>
+<pre><code>##    submission_date state tot_cases conf_cases prob_cases new_case pnew_case
+## 1:      2020-06-01    FL     55415         NA         NA      651         0
+## 2:      2020-06-01    GA     46501      46470         31      889         2
+## 3:      2020-06-01    NY    167947         NA         NA      480         0
+## 4:      2020-06-02    FL     56001         NA         NA      586         0
+## 5:      2020-06-02    GA     47079      47048         31      578         0
+##    tot_death conf_death prob_death new_death pnew_death
+## 1:      2460         NA         NA         9          0
+## 2:      2074       2074          0        22          0
+## 3:      8159         NA         NA        29          0
+## 4:      2530         NA         NA        70          0
+## 5:      2102       2102          0        28          0</code></pre>
+<pre class="r"><code># Example using dates and states and fields
+pull_covid_data(start_date=&quot;2020-06-01&quot;, end_date=&quot;2020-07-01&quot;, 
+                states=c(&quot;FL&quot;, &quot;GA&quot;, &quot;NY&quot;), 
+                fields=c(&quot;submission_date&quot;, &quot;state&quot;, &quot;tot_cases&quot;, &quot;tot_death&quot;), limit=10)</code></pre>
+<pre><code>##     submission_date state tot_cases tot_death
+##  1:      2020-06-01    FL     55415      2460
+##  2:      2020-06-01    GA     46501      2074
+##  3:      2020-06-01    NY    167947      8159
+##  4:      2020-06-02    FL     56001      2530
+##  5:      2020-06-02    GA     47079      2102
+##  6:      2020-06-02    NY    168663      8198
+##  7:      2020-06-03    FL     57293      2566
+##  8:      2020-06-03    GA     47802      2123
+##  9:      2020-06-03    NY    169213      8230
+## 10:      2020-06-04    FL     58701      2607</code></pre>
 </div>
 <div id="plots" class="section level2">
 <h2>Plots</h2>
@@ -606,7 +622,18 @@ summary {
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
-<p>Text</p>
+<p>This package provides easy access to the most recent data from the CDC, and provides analysis surrounding COVID cases and deaths. This package is meant to be a tool for COVID researchers to use to obtain data, and to understand COVID trends.</p>
+</div>
+<div id="future-considerations" class="section level2">
+<h2>Future Considerations</h2>
+<p>This package is hosted on Github and thus allows for collaboration among other COVID researchers. The following are additional features that may be included in the package in the future:</p>
+<ul>
+<li>Incorporate additional supplemental datasets</li>
+<li>Include functionality to automatically update supplemental datasets</li>
+<li>Expand the capabilities of historic data plots</li>
+<li>Include additional historic data plots</li>
+<li>Include simulation capabilities for COVID time series modeling</li>
+</ul>
 </div>
 
 
