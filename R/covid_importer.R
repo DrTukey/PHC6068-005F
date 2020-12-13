@@ -106,5 +106,6 @@ pull_covid_data <- function(start_date, end_date,
                       consent_cases, consent_deaths, limit)
   df <- read.csv(url)
   df <- format_covid_data(df)
+  setDT(df)
   return(df)
 }

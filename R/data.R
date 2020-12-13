@@ -8,3 +8,9 @@
 #'   \item{default_states}{default states specified for all functions in the package}
 #' }
 "data_fields"
+
+"age_sex"
+
+"insurance"
+
+"race_ethnicity"

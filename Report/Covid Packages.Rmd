@@ -22,40 +22,45 @@ The Centers for Disease Control (CDC) makes COVID-19 case and death data availab
 
 A CSV is a standard format for storing data that uses comma separated values. Data fields are separated by commas thus identifying unique entries. JSON is a newer data format that is more flexible than csv. Data for this project will be retrieved in CSV format. The CSV will be read into an R dataframe for use in analysis.
 
-The CDC data can be retrieved using three different methods. The first method is simply to download an entire CSV that contains all available data. The second method uses simple additions to the base URL that allow for a minimal amount of data subsetting. The third method, which is the method focused on in this report, is the use of query language within the URL to subset data. 
+The CDC data can be retrieved using three different methods. The first method is simply to download an entire CSV that contains all available data. The second method uses simple additions to the base URL that allow for a minimal amount of data subsetting. The third method, which is the method focused on in this report, is the use of query language within the URL to subset data.
+
+The API allowing access to CDC COVID-19 data is build using Socrata. The Socrata site includes the following definition of its service, "The Socrata Open Data API allows you to programmatically access a wealth of open data resources from governments, non-profits, and NGOs around the world."
+
+Rather than downloading an entire dataset, or applying minimal subsetting, Socrata allows richer subsetting of COVID-19 data directly from the download URL. For example specific dataset fields can be selected, beginning and ending time periods can be defined, and data can be filtered to selected states. 
 
 
-full data vs query string vs SoQL
 
-United States COVID-19 Cases and Deaths by State over Time
-https://dev.socrata.com/foundry/data.cdc.gov/9mfq-cb36
+Field             | Datatype    | Description
+-----             | --------    | -----------
+submission_date   | timestamp   | Date and time record submited
+state             | text        | State where record applies 
+tot_cases         | number      | Total number of cases
+conf_cases        | number      | Total confirmed cases
+prob_cases        | number      | Total probable cases
+new_case          | number      | Number of new cases
+pnew_case         | number      | Number of new probable cases
+tot_death         | number      | Total number of deaths
+conf_death        | number      | Total number of confirmed deaths
+prob_death        | number      | Total number of probable deaths
+new_death         | number      | Number of new deaths
+pnew_death        | number      | Number of new probable deaths
 
-Fields:
-submission_date (timestamp):
-state (text): 
-tot_cases (number): Total number of cases
-conf_cases (number): Total confirmed cases
-prob_cases (number): Total probable cases
-new_case (number): Number of new cases
-pnew_case (number): Number of new probable cases
-tot_death (number): Total number of deaths
-conf_death (number): Total number of confirmed deaths
-prob_death (number): Total number of probable deaths
-new_death (number): Number of new deaths
-pnew_death (number): Number of new probable deaths
-created_at (timestamp): Date and time record was created
-consent_cases (text): Boolean to determine if confirmed and probable cases are included
-consent_deaths (text): Boolean to determine if confirmed and probable deaths are included
+
+- United States COVID-19 Cases and Deaths by State over Time: https://dev.socrata.com/foundry/data.cdc.gov/9mfq-cb36
 
 
 ## Supplemental Datasets
 
 Three additional datasets are included in the package. All three datasets were obtained from publicly accessible government sites. The datasets are included to support additional analysis and data aggregate to better understand the impact of COVID are various populations.
 
+SAHIE Insurance Data
+https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html
 
-- SAHIE Insurance Data: https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html
-- Demographic Data (Race and Ethnicity): https://covid19.census.gov/datasets/race-and-ethnicity-states/data
-- Demographic Data (Age and Sex): https://covid19.census.gov/datasets/population-by-age-and-sex-states
+Demographic Data (Race and Ethnicity)
+https://covid19.census.gov/datasets/race-and-ethnicity-states/data
+
+Demographic Data (Age and Sex)
+https://covid19.census.gov/datasets/population-by-age-and-sex-states
 
 
 
