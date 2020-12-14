@@ -8,6 +8,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(covidDataSummarizer)
+options(warn=-1)
 ```
 
 
@@ -20,7 +21,7 @@ This report will cover the three primary functions of this package:
 * Plotting historic cases and deaths
   * covid_cases_graph()
   * covid_deaths_graph()
-* Modeling future cases
+* Modeling future cases or deaths
   * covid_ts_forecast()
 
 
@@ -107,31 +108,81 @@ pull_covid_data(start_date="2020-06-01", end_date="2020-07-01",
 
 ## Plots
 
-Historic COVID cases can be plotted using the function covid_cases_graph. 
+The two plot functions covid_cases_graph(start_date,end_date) and covid_deaths_graph(start_date,end_date) give graphical summaries over the time specified.
+
+covid_cases_graph(start_date,end_date) plots the tsix states that had the largest number of new cases at the end date( essentially x= date and y= number of new 
+COVID cases).
+
+Similarly covid_deaths_graph(start_date,end_date) plots the six states that had the largest number of new deaths at the end date (x= date and y=number of new deaths due to COVID). 
+
+Both graph functions also have an option to report cases or deaths adjusting for population, i.e. cases per 100,000,000 people or deaths per 100,000,000 people. 
 
 ```{r}
-covid_cases_graph("2020-06-30", "2020-11-30",  per100k = TRUE)
-```
+#Example of covid_cases_graph
+Thanksgiving2020<-"2020-11-19"
+today<-Sys.Date()
+covid_cases_graph(start_date = Thanksgiving2020,end_date = today,per100k = T) 
 
-Historic COVID deaths can be plotted using the function covid_deaths_graph.
+#example of covid_deaths_graph
+covid_deaths_graph("2020-11-01","2020-12-01",per100k = T)
 
-```{r}
-covid_deaths_graph("2020-06-30", "2020-11-30",  per100k = TRUE)
 ```
 
 ## Time Series
 
-Future deaths can be modeleted using the function covid_ts_forecast.
+The analysis of data indexed by equally spaced increments of time to identify patterns and predict values from these patterns is referred to as Time Series Forecasting. The motivation behind pursuing time series forecasting is to obtain an understanding of observed data and fit a model to forecast or monitor future possibilities. CDC is responding to a pandemic of coronavirus disease 2019 (COVID-19) caused by a new coronavirus, SARS-CoV-2, that is spreading from person to person. CDC works with many partners to obtain weekly forecasts based on statistical models that aim to predict
+
+* National and state numbers of new and total COVID-19 deaths per week for the next 4 weeks.
+* National and state numbers of new COVID-19 hospitalizations per day for the next 4 weeks.
+* National, state, and county numbers of new COVID-19 cases per week for the next 4 weeks.
+
+Forecasts of deaths, hospitalizations, and cases will help inform public health decision making by projecting the likely impact of the COVID-19 pandemic in coming weeks.
+
+In our function ```covid_ts_forecast``` we implemented time series forecasting to predict new cases or new deaths for the next 100 days across entire USA or by state selection or by regions in USA using 4 different models. All these models use default values in their arguments.
+
+* **Exponential smoothing state space model:** Exponential smoothing is a family of very successful forecasting methods which are based on the key property that forecasts are weighted combinations of past observations. Our model selection is automatically done using ```model = "ZZZ"``` by default in the ets function. First letter represents error type, second letter represents trend type and third letter represents season type. For more information please refer to the ```ets``` function documentation of the ```forecast``` package. https://www.rdocumentation.org/packages/forecast/versions/8.13/topics/ets
+
+
+* **BATS model (Exponential smoothing state space model with Box-Cox transformation, ARMA errors, Trend and Seasonal components):** A seasonal pattern occurs when a time series is affected by seasonal factors such as the time of the year or the day of the week. Seasonality is induced partly by various factors. Particularly during a pandemic it is very complicated to identify the factors affecting the seasonality. In our model we are not considering any external factors other than the topic of forecast. However seasonality is considered in the BATS model based on either new cases or new deaths. $ARMA(p,q)$ refers to the model with p autoregressive terms and q moving-average terms. This model contains the $AR(p)$ and $MA(q)$ models. The $ARMA(p,q)$ errors are generally assumed to be i.i.d. sampled from a normal distribution with zero mean: $\epsilon_{t}$ ~ $N(0,\sigma^2)$ where $\sigma^2$ is the variance. The Akaike Information Critera (AIC) is a widely used measure of a statistical model. It basically quantifies 
+  * the goodness of fit, and
+  * the simplicity/parsimony, of the model into a single statistic.
+
+   When comparing two models, the one with the lower AIC is generally “better”. In our model we used default parameters such as whether to Box-Cox transformation or include a trend based on the AIC. The best fit is selected automatically by AIC. Our function uses ```bats``` function from the ```forecast``` package. For further insights on ```bats``` function please refer to https://www.rdocumentation.org/packages/forecast/versions/8.13/topics/bats
+
+* **TBATS model (Trigonometric Seasonal Exponential smoothing state space model with Box-Cox transformation, ARMA errors, Trend and Seasonal components):** TBATS is an extension to BATS model that can handle multiple seasonalities. Each seasonality is modeled by a trigonometric representation based on Fourier series. One major advantage of this approach is that it requires only 2 seed states regardless of the length of period. Another advantage is the ability to model seasonal effects of non-integer lengths. For example, given a series of daily observations, one can model leap years with a season of length 365.25. Under the hood TBATS will consider various alternatives and fit quite a few models and select the best fit. It will consider models:
+  * with Box-Cox transformation and without it.
+  * with and without Trend
+  * with and without Trend Damping
+  * with and without ARMA(p,q) process used to model residuals
+non-seasonal model
+  * various amounts of harmonics used to model seasonal effects
+  
+   The final model will be chosen using AIC. In particular auto ARMA is used to decide if residuals need modeling and what p and q values are suitable. In our function, we used ```tbats``` R function from ```forecast``` package with default argument values for selecting the best model. For further information please refer to https://www.rdocumentation.org/packages/forecast/versions/8.4/topics/tbats
+   
+* **ARIMA (Autoregressive Integrated Moving Average model):** Our package uses ```auto.arima``` function from the ```forecast``` package. ARIMA model is a generalization of ARMA model described above in the BATS model section. ARIMA applies an initial differencing step in the integrated part of the model to handle non-stationarity in the mean of the trend. 
+There are seasonal and non-seasonal ARIMA models. For simplicity, our function assumes seasonality with a default option ```seasonal=TRUE``` in the ```auto.arima``` function. Non-seasonal ARIMA models eliminate seasonal component by applying seasonal-differencing. Seasonal-differencing is a form of additive seasonal adjustment: the "index" which is subtracted from each value of the time series is simply the value that was observed in the same season one time period earlier. 
+
+   This method has 3 variables to count for.
+  * P = Periods to lag for eg: (if P= 3 then we will use the three previous periods of our time series in the autoregressive portion of the calculation) P helps adjust the line that is being fitted to forecast the series.
+  * D = In an ARIMA model we transform a time series into stationary one(series without trend or seasonality) using differencing. D refers to the number of differencing transformations required by the time series to get stationary. Stationary time series is when the mean and variance are constant over time. It is easier to predict when the series is stationary.
+  * Q = This variable denotes the lag of the error component, where error component is a part of the time series not explained by trend or seasonality
+  
+  All 3 variables in our model are automatically selected based on a unit root test from the tests (KPSS, Augmented Dickey-Fuller (ADF), Phillips-Perron (PP)) using the argument ```test = c("kpss","adf","pp")```. For further information on these tests please refer to ```ndiffs``` function of the ```forecast``` package. For information on ```auto.arima``` function please refer to https://www.rdocumentation.org/packages/forecast/versions/8.13/topics/auto.arima
+
+### Examples
 
 ```{r}
 covid_ts_forecast(start_date='2020-04-30', fvar="new_death", model=c("auto.arima"), pred.days = 30)
-```
+covid_ts_forecast(start_date='2020-04-30', fvar="new_case", model=c("tbats"), pred.days = 30)
+covid_ts_forecast(start_date='2020-06-01', fvar="new_death", state.filter=c("MA","CA","NY","NJ","IL","TN"), model=c("auto.arima"), pred.days = 7)
+covid_ts_forecast(fvar="new_death",region.filter=c("Midwest","West"),pred.days=20)
 
+```
 
 
 ## Conclusion
 
-This package provides easy access to the most recent data from the CDC, and provides analysis surrounding COVID cases and deaths. This package is meant to be a tool for COVID researchers to use to obtain data, and to understand COVID trends.
+This package provides easy access to the most recent data from the CDC, and provides analysis surrounding COVID cases and deaths. This package is meant to be a tool for COVID researchers to use to obtain data, and to understand and predict COVID trends.
 
 
 ## Future Considerations
@@ -143,4 +194,5 @@ This package is hosted on Github and thus allows for collaboration among other C
 * Expand the capabilities of historic data plots
 * Include additional historic data plots
 * Include simulation capabilities for COVID time series modeling
-
+* **Selection of forecasting model parameters**: Current function ```covid_ts_forecast``` uses all default arguments in the forecasting models. In the future, some flexibility can be added to choose the model parameters such as choosing a seasonal test, stepwise/non-stepwise selection, stationarity, information criterion to be used, choosing a list of ARIMA models, selection of type of unit root test, allowing drift terms, choosing number of cores for parallel processing, allowing backward compatibility, etc.  
+* **Multivariate timeseries**: Our current function ```covid_ts_forecast``` uses univariate time series. Forecasting new cases, deaths or hospitalizations during a pandemic requires consideration of various factors that affect the virus spread. This allows to predict the future cases in an efficient manner. An extension to this could be implementation of multivariate time series which considers the dependency of a variable not only on its past values but has some dependency on other variables such as economic/social status, living conditions, comorbidities, vaccine administration, age/race/gender groups, usage of masks, social distancing etc. 
