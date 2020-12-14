@@ -1,5 +1,11 @@
 ![alt text](https://github.com/DrTukey/PHC6068-005F/blob/develop/images/covid.jpg?raw=true)
 
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
 
 This package can pull COVID-19 daily data from CDC. 
 
