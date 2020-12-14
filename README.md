@@ -7,19 +7,11 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
-<!--
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
--->
-
-[![Contributors]][contributors-url]
-[![Forks]][forks-url]
-[![Stargazers]][stars-url]
-[![Issues]][issues-url]
-[![GNU GPL License]][license-url]
+[![GPL License][license-shield]][license-url]
 
 
 <!-- PROJECT LOGO -->
@@ -104,7 +96,7 @@ Contributions are what make the open source community such an amazing place to b
 <!-- LICENSE -->
 ## License
 
-Distributed under the GNU GPL License. See `LICENSE` for more information.
+Distributed under the GPL License. See `LICENSE` for more information.
 
 
 
