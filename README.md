@@ -49,6 +49,7 @@ This package is built on the R programming language and utilizes public data ava
 
 
 
+
 <!-- INSTALLATION -->
 ## Installation
 
@@ -58,7 +59,8 @@ This package is built on the R programming language and utilizes public data ava
    ```
 
 
-<!-- INSTALLATION -->
+
+<!-- USAGE -->
 ## Usage
 
 1. Retrieve COVID data
@@ -73,6 +75,27 @@ This package is built on the R programming language and utilizes public data ava
    ```sh
    covid_ts_forecast(start_date='2020-01-01', fvar="new_case", state.filter=c("MA","CA"), pred.days = 30)
    ```
+
+
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/CovidFeature`)
+3. Commit your Changes (`git commit -m 'Solving Covid'`)
+4. Push to the Branch (`git push origin feature/CovidFeature`)
+5. Open a Pull Request
+
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
 
 
 
