@@ -6,11 +6,13 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+<p align="center">
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
+</p>
 
 
 <!-- PROJECT LOGO -->
@@ -19,6 +21,7 @@
   <a href="https://github.com/DrTukey/PHC6068-005F">
     <img src="https://github.com/DrTukey/PHC6068-005F/blob/develop/images/covid.jpg?raw=true" alt="Logo" width="800" height="450">
   </a>
+</p>
 
 <!--![alt text](https://github.com/DrTukey/PHC6068-005F/blob/develop/images/covid.jpg?raw=true)-->
 
