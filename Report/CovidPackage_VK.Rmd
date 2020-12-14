@@ -21,7 +21,7 @@ This report will cover the three primary functions of this package:
 * Plotting historic cases and deaths
   * covid_cases_graph()
   * covid_deaths_graph()
-* Modeling future cases
+* Modeling future cases or deaths
   * covid_ts_forecast()
 
 
@@ -187,5 +187,5 @@ This package is hosted on Github and thus allows for collaboration among other C
 * Expand the capabilities of historic data plots
 * Include additional historic data plots
 * Include simulation capabilities for COVID time series modeling
-* **Selection of forecasting model parameters**: Current function ```covid_ts_forecast``` uses all default arguments in the forecasting models. In the future, we intend to add some flexibility to choose the model parameters such as choosing a seasonal test, stepwise/non-stepwise selection, stationarity, information criterion to be used, choosing a list of ARIMA models, selection of type of unit root test, allowing drift terms, choosing number of cores for parallel processing, allowing backward compatibility, etc.  
-* **Multivariate timeseries**: Our current function ```covid_ts_forecast``` uses univariate time series. Forecasting new cases, deaths or hospitalizations during a pandemic requires consideration of various factors that affect the virus spread. This allows to predict the future cases in an efficient manner. In future we intend to develop a function for multivariate time series which considers the dependency of a variable not only on its past values but has some dependency on other variables such as economic/social status, living conditions, age/race/gender groups, usage of masks, social distancing etc. 
+* **Selection of forecasting model parameters**: Current function ```covid_ts_forecast``` uses all default arguments in the forecasting models. In the future, some flexibility can be added to choose the model parameters such as choosing a seasonal test, stepwise/non-stepwise selection, stationarity, information criterion to be used, choosing a list of ARIMA models, selection of type of unit root test, allowing drift terms, choosing number of cores for parallel processing, allowing backward compatibility, etc.  
+* **Multivariate timeseries**: Our current function ```covid_ts_forecast``` uses univariate time series. Forecasting new cases, deaths or hospitalizations during a pandemic requires consideration of various factors that affect the virus spread. This allows to predict the future cases in an efficient manner. An extension to this could be implementation of multivariate time series which considers the dependency of a variable not only on its past values but has some dependency on other variables such as economic/social status, living conditions, comorbidities, vaccine administration, age/race/gender groups, usage of masks, social distancing etc. 
