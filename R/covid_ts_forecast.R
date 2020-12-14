@@ -159,7 +159,7 @@ covid_ts_forecast <- function(start_date='2020-01-22',
     mutate(data.ts = map(.x       = data, 
                          .f       = tk_ts, 
                          select   = -submission_date, 
-                         start    = 2020-01-22,
+                         start    = start_date,
                          freq     = 1))
   
   # Model timeseries
@@ -182,21 +182,7 @@ covid_ts_forecast <- function(start_date='2020-01-22',
     mutate(sweep = map(fcast, sw_sweep, fitted = FALSE, timetk_idx = TRUE)) %>%
     unnest(sweep)
 
-  covid_ts_forecast_modeldata <<- data2_fcast_tidy
-  
-  # if (modeldata){
-  #   #return(modeldata)
-  #   return(data2_fcast_tidy)
-  # }
-  # data2_autoarima_fcast <<- data2_autoarima_fit %>%
-  #   mutate(fcast.autoarima = map(fit.autoarima, forecast, h = pred.days))
-  # data2_autoarima_fcast
-  # 
-  # data2_autoarima_fcast_tidy <<- data2_autoarima_fcast %>%
-  #   mutate(sweep = map(fcast.autoarima, sw_sweep, fitted = FALSE, timetk_idx = TRUE)) %>%
-  #   unnest(sweep)
-  # data2_autoarima_fcast_tidy
-  
+  covid_ts_forecast_modeldata <<- data2_fcast_tidy  
 
 ### Titles/Subtitles for plots
   ifelse(model %in% "naive", subttl <- "Naive Model Forecast",
