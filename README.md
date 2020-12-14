@@ -1,3 +1,5 @@
+![alt text](https://github.com/DrTukey/PHC6068-005F/blob/develop/covid.jpg?raw=true)
+
 This package can pull COVID-19 daily data from CDC. 
 
 
