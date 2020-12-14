@@ -30,7 +30,13 @@ covid_ts_forecast(
 Forecast COVID-19 new cases or new deaths in USA from now up to a maximum of 100 days
 }
 \details{
-
+\describe{
+\item{start_date}{Input data is obtained from pull_covid_data function. The source data is from CDC website. Data is available from 2020-01-22. }
+\item{fvar}{Only one object can be used at a time.}
+\item{state.filter}{2 character codes for states should be used. If not specified, state.filter will calculate sum of new cases (new_case) or new deaths (new_death) across each day}
+\item{region.filter}{If this is left blank along with state.filter then state.filter=c("all") will be used}
+\item{model}{Only a single model can be used at a time.}
+}
 }
 \examples{
 covid_ts_forecast(start_date='2020-01-01', fvar="new_case", state.filter=c("MA","CA"), pred.days = 30)

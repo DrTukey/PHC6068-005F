@@ -11,7 +11,7 @@ covid_cases_graph(start_date, end_date, per100k = T)
 
 \item{end_date}{end date}
 
-\item{per_capita}{per_capita}
+\item{per100k}{per100k}
 }
 \value{
 a ggplot object
@@ -20,7 +20,7 @@ a ggplot object
 Plot cases
 }
 \examples{
-covid_cases_graph("2020-03-30", "2020-08-30",  per100k = T)
-covid_cases_graph("2020-03-30", "2020-08-30",  per100k = F)
+covid_cases_graph("2020-03-30", "2020-08-30",  per100k = TRUE)
+covid_cases_graph("2020-03-30", "2020-08-30",  per100k = FALSE)
 
 }

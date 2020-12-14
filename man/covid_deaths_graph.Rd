@@ -4,14 +4,14 @@
 \alias{covid_deaths_graph}
 \title{Plot deaths}
 \usage{
-covid_deaths_graph(start_date, end_date, per100k = T)
+covid_deaths_graph(start_date, end_date, per100k = TRUE)
 }
 \arguments{
 \item{start_date}{start date}
 
 \item{end_date}{end date}
 
-\item{per_capita}{per_capita}
+\item{per100k}{per100k}
 }
 \value{
 a ggplot object
@@ -20,7 +20,7 @@ a ggplot object
 Plot deaths
 }
 \examples{
-covid_deaths_graph("2020-03-30", "2020-08-30",  per100k = T)
-covid_deaths_graph("2020-03-30", "2020-08-30",  per100k = F)
+covid_deaths_graph("2020-03-30", "2020-08-30",  per100k = TRUE)
+covid_deaths_graph("2020-03-30", "2020-08-30",  per100k = FALSE)
 
 }

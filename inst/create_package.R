@@ -27,16 +27,21 @@ age_sex <- get(load(paste0(raw_data_path, "age_sex.rda")))
 age_sex <- merge(age_sex, state_abb, by.x = "State", by.y = "state", all.x = T)
 age_sex[, `:=` (State = abb, 
                 abb = NULL)]
+age_sex <- as.data.frame(age_sex)
+
 race_ethnicity <- get(load(paste0(raw_data_path, "race_ethnicity.rda")))
 race_ethnicity <- data.table(race_ethnicity)
 race_ethnicity <- merge(race_ethnicity, state_abb, by.x = "State", by.y = "state", all.x = T)
 race_ethnicity[, `:=` (State = abb, 
                        abb = NULL)]
+race_ethnicity <- as.data.frame(race_ethnicity)
+
 insurance <- get(load(paste0(raw_data_path, "insurance.rda")))
 insurance <- data.table(insurance)
 insurance <- merge(insurance, state_abb, by.x = "State", by.y = "state", all.x = T)
 insurance[, `:=` (State = abb, 
-                       abb = NULL)]
+                  abb = NULL)]
+insurance <- as.data.frame(insurance)
 
 
 # Create internal data
@@ -50,4 +55,5 @@ devtools::document()
 
 # Build package
 package_loc <- devtools::build()
-install.packages(package_loc, repos = NULL) #, lib = lib_path)
+#remotes::install_github(package_loc, dependencies = T)
+remotes::install_local(package_loc, dependencies = T)

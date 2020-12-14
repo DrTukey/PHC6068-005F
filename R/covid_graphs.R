@@ -2,17 +2,17 @@
 #'
 #' @param start_date start date
 #' @param end_date end date
-#' @param per_capita per_capita
+#' @param per100k per100k
 #' @import dplyr ggplot2 scales
 #' 
 #' @return a ggplot object
 #' 
 #' @examples
-#' covid_deaths_graph("2020-03-30", "2020-08-30",  per100k = T)
-#' covid_deaths_graph("2020-03-30", "2020-08-30",  per100k = F)
+#' covid_deaths_graph("2020-03-30", "2020-08-30",  per100k = TRUE)
+#' covid_deaths_graph("2020-03-30", "2020-08-30",  per100k = FALSE)
 #' 
 #' @export
-covid_deaths_graph <- function(start_date, end_date, per100k = T) {
+covid_deaths_graph <- function(start_date, end_date, per100k = TRUE) {
   
   # Dataset for state level population
   state_population <- age_sex %>%
@@ -65,14 +65,14 @@ covid_deaths_graph <- function(start_date, end_date, per100k = T) {
 #'
 #' @param start_date start date
 #' @param end_date end date
-#' @param per_capita per_capita
+#' @param per100k per100k
 #' @import dplyr ggplot2 scales
 #' 
 #' @return a ggplot object
 #' 
 #' @examples
-#' covid_cases_graph("2020-03-30", "2020-08-30",  per100k = T)
-#' covid_cases_graph("2020-03-30", "2020-08-30",  per100k = F)
+#' covid_cases_graph("2020-03-30", "2020-08-30",  per100k = TRUE)
+#' covid_cases_graph("2020-03-30", "2020-08-30",  per100k = FALSE)
 #'
 #' @export
 covid_cases_graph <- function(start_date, end_date, per100k = T) {
