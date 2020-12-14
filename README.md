@@ -17,23 +17,25 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/DrTukey/PHC6068-005F">
-    <img src="https://github.com/DrTukey/PHC6068-005F/blob/develop/images/covid.jpg?raw=true" alt="Logo" width="800" height="450">
+  <a href="https://github.com/DrTukey/covidDataSummarizer">
+    <img src="https://github.com/DrTukey/covidDataSummarizer/blob/develop/images/covid.jpg?raw=true" alt="Logo" width="800" height="450">
   </a>
   
-  <h3 align="center">COVID DATA TRENDER</h3>
+  <h3 align="center">COVID DATA SUMMARIZER</h3>
 
   <p align="center">
-    The COVID data trender for everyone!
+    The COVID data summarizer for everyone!
   </p>
 
 </p>
 
 <!-- ABOUT THE PROJECT -->
-## About COVID TRENDER
+## About COVID DATA SUMMARIZER
 
 
-There are many great R projects on GitHub, however, this project ours and that means it's the best to us. We want COVID data to be accessible to everyone and interpretable by anyone who is interested.
+There are many great R projects on GitHub, however, this project ours and that means it's the best to us. We want 
+
+data to be accessible to everyone and interpretable by anyone who is interested.
 
 This project:
 * Allows you to pull COVID data from the CDC in a flexible manner
@@ -56,7 +58,7 @@ This package is built on the R programming language and utilizes public data ava
 
 1. Install the package
    ```sh
-   git clone https://github.com/DrTukey/PHC6068-005F.git
+   git clone https://github.com/DrTukey/covidDataSummarizer.git
    ```
 
 
@@ -103,12 +105,12 @@ Distributed under the GPL License. See `LICENSE` for more information.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/DrTukey/PHC6068-005F/graphs/contributors
+[contributors-url]: https://github.com/DrTukey/covidDataSummarizer/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/DrTukey/PHC6068-005F/network/members
+[forks-url]: https://github.com/DrTukey/covidDataSummarizer/network/members
 [stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/DrTukey/PHC6068-005F/stargazers
+[stars-url]: https://github.com/DrTukey/covidDataSummarizer/stargazers
 [issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/DrTukey/PHC6068-005F/issues
+[issues-url]: https://github.com/DrTukey/covidDataSummarizer/issues
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/DrTukey/PHC6068-005F/blob/develop/LICENSE.txt
+[license-url]: https://github.com/DrTukey/covidDataSummarizer/blob/develop/LICENSE.txt
