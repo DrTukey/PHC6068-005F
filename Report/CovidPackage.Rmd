@@ -13,7 +13,7 @@ library(covidDataSummarizer)
 
 ## Introduction
 
-This report will cover the three focuses of this described package:  
+This report will cover the three primary functions of this package:  
 
 * Retrieving COVID data from the CDC
   * pull_covid_data()
@@ -107,19 +107,24 @@ pull_covid_data(start_date="2020-06-01", end_date="2020-07-01",
 
 ## Plots
 
-Example plots
+Historic COVID cases can be plotted using the function covid_cases_graph. 
 
 ```{r}
-
+covid_cases_graph("2020-06-30", "2020-11-30",  per100k = TRUE)
 ```
 
+Historic COVID deaths can be plotted using the function covid_deaths_graph.
+
+```{r}
+covid_deaths_graph("2020-06-30", "2020-11-30",  per100k = TRUE)
+```
 
 ## Time Series
 
-Example time series
+Future deaths can be modeleted using the function covid_ts_forecast.
 
 ```{r}
-
+covid_ts_forecast(start_date='2020-04-30', fvar="new_death", model=c("auto.arima"), pred.days = 30)
 ```
 
 
