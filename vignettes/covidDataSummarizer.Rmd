@@ -13,8 +13,22 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
-  options(warn=-1)
 )
+```
+
+```{r setup, message = FALSE}
+options(warn=-1)
+library(dplyr)
+library(lubridate)
+library(zoo)
+library(tidyr)
+library(purrr)
+library(timetk)
+library(sweep)
+library(ggplot2)
+library(tidyquant)
+library(forecast)
+library(covidDataSummarizer)
 ```
 
 ## Retrieve Data
