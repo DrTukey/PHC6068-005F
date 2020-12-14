@@ -3,7 +3,7 @@
 #' @param start_date start date
 #' @param end_date end date
 #' @param per_capita per_capita
-#' @import data.table dplyr ggplot2 scales
+#' @import dplyr ggplot2 scales
 #' 
 #' @return a ggplot object
 #' 
@@ -15,7 +15,9 @@
 covid_deaths_graph <- function(start_date, end_date, per100k = T) {
   
   # Dataset for state level population
-  state_population <- age_sex[, list(Pop2018 = sum(Population)), by = "State"]
+  state_population <- age_sex %>%
+    group_by(State) %>%
+    summarise(Pop2018 = sum(Population)) 
   
   # Pull covid data and calculate deaths per capita  
   covid_data <- pull_covid_data(start_date, end_date) %>%
@@ -64,7 +66,7 @@ covid_deaths_graph <- function(start_date, end_date, per100k = T) {
 #' @param start_date start date
 #' @param end_date end date
 #' @param per_capita per_capita
-#' @import data.table dplyr ggplot2 scales
+#' @import dplyr ggplot2 scales
 #' 
 #' @return a ggplot object
 #' 
@@ -76,7 +78,9 @@ covid_deaths_graph <- function(start_date, end_date, per100k = T) {
 covid_cases_graph <- function(start_date, end_date, per100k = T) {
   
   # Dataset for state level population
-  state_population <- age_sex[, list(Pop2018 = sum(Population)), by = "State"]
+  state_population <- age_sex %>%
+    group_by(State) %>%
+    summarise(Pop2018 = sum(Population)) 
   
   covid_data <- pull_covid_data(start_date, end_date) %>%
     merge(state_population, by.x = "state", by.y = "State", all.x = T) %>%

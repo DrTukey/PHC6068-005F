@@ -1,6 +1,6 @@
 ---
-title: "Covid Package"
-author: "Gerard Garvan, Dan Golden, Vineeth Kurnala"
+title: "Covid Analysis Package"
+author: "Gerard Garvan, Dan Golden, Vineenth Kurnala"
 date: "12/13/2020"
 output: html_document
 ---
@@ -11,7 +11,7 @@ library(covidDataSummarizer)
 ```
 
 
-## Overview
+## Introduction
 
 This report will cover the three focuses of this described package:  
 
