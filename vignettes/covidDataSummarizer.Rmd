@@ -71,7 +71,7 @@ covid_deaths_graph("2020-11-01","2020-12-01",per100k = T)
 
 ## Time Series Forecasting
 
-**Defaults
+### Defaults
 
 * ```start_date = 2020-01-22``` (COVID-19 data in the CDC database is available from this date)
 * ```state.filter = c("all")``` (state.filter uses 2 letter state codes or "all". If not specified, the function forecasts new cases or new deaths across entire USA)
