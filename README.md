@@ -19,6 +19,13 @@
   <a href="https://github.com/DrTukey/PHC6068-005F">
     <img src="https://github.com/DrTukey/PHC6068-005F/blob/develop/images/covid.jpg?raw=true" alt="Logo" width="800" height="450">
   </a>
+  
+  <h3 align="center">COVID DATA TRENDER</h3>
+
+  <p align="center">
+    The COVID data trender for everyone!
+  </p>
+
 </p>
 
 <!--![alt text](https://github.com/DrTukey/PHC6068-005F/blob/develop/images/covid.jpg?raw=true)-->
