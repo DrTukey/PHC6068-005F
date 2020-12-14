@@ -1,6 +1,6 @@
 ---
 title: "Covid Analysis Package"
-author: "Gerard Garvan, Dan Golden, Vineenth Kurnala"
+author: "Gerard Garvan, Dan Golden, Vineeth Kurnala"
 date: "12/13/2020"
 output: html_document
 ---
@@ -128,7 +128,7 @@ covid_deaths_graph("2020-11-01","2020-12-01",per100k = T)
 
 ```
 
-## Time Series
+## Time Series Forecasting
 
 The analysis of data indexed by equally spaced increments of time to identify patterns and predict values from these patterns is referred to as Time Series Forecasting. The motivation behind pursuing time series forecasting is to obtain an understanding of observed data and fit a model to forecast or monitor future possibilities. CDC is responding to a pandemic of coronavirus disease 2019 (COVID-19) caused by a new coronavirus, SARS-CoV-2, that is spreading from person to person. CDC works with many partners to obtain weekly forecasts based on statistical models that aim to predict
 
