@@ -1,6 +1,6 @@
 ---
 title: "Covid Data Summarizer"
-author: "Gerard Garvan, Dan Golden, Vineenth Kurnala"
+author: "Gerard Garvan, Dan Golden, Vineeth Kurnala"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
