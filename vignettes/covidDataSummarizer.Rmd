@@ -15,10 +15,6 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-options(knitr.duplicate.label = "allow")
-```
-
-```{r setup, message = FALSE}
 options(warn=-1)
 library(dplyr)
 library(lubridate)
@@ -32,6 +28,7 @@ library(tidyquant)
 library(forecast)
 library(covidDataSummarizer)
 ```
+
 
 ## Retrieve Data
 
