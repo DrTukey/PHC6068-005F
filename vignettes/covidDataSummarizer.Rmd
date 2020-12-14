@@ -32,6 +32,17 @@ library(covidDataSummarizer)
 
 ## Retrieve Data
 
+Data from the CDC's publicily accessible API endpoint can be downloaded using the function pull_covid_data(). This function supports the following arguments:  
+
+* start_date: The starting date for COVID data (mandatory field)
+* end_date: The ending date for COVID date (mandatory field)
+* states: Character vector of states (optional field)
+* fields: Fields from CDC data to utilize
+* consent_cases: Determines if confirmed and probable cases should be included (optional)
+* consent_deaths: Determines if confirmed and probable deaths should be included (optional)
+* limit: Specifies the number of records to pull (option field)
+
+
 ```{r}
 # Example using dates
 pull_covid_data(start_date="2020-06-01", end_date="2020-07-01", limit=5)
