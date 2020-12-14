@@ -28,10 +28,25 @@
 
 </p>
 
-<!--![alt text](https://github.com/DrTukey/PHC6068-005F/blob/develop/images/covid.jpg?raw=true)-->
+<!-- ABOUT THE PROJECT -->
+## About COVID TRENDER
 
 
-This package can pull COVID-19 daily data from CDC. 
+There are many great R projects on GitHub, however, this project ours and that means it's the best to us. We want COVID data to be accessible to everyone and interpretable by anyone who is interested.
+
+This project:
+* Allows you to pull COVID data from the CDC in a flexible manner
+* Generates plots of historic data representing cases and deaths by state
+* Displays trended data for future COVID impacts
+
+There are many other COVID packages and this package will supplement those with new analysis and new visualizations, but will also learn from best practices across many domains of knowledge.
+
+### Built With
+
+This package is built on the R programming language and utilizes public data available from the CDC.
+* [R](https://rstudio.com/)
+* [CDC](https://www.cdc.gov/)
+
 
 
 Install the package by running /inst/create_package.R.
