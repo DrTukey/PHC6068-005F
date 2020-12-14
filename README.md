@@ -48,24 +48,32 @@ This package is built on the R programming language and utilizes public data ava
 * [CDC](https://www.cdc.gov/)
 
 
-### Installation
+
+<!-- INSTALLATION -->
+## Installation
 
 1. Install the package
    ```sh
    git clone https://github.com/DrTukey/PHC6068-005F.git
    ```
-2. Retrieve COVID data
+
+
+<!-- INSTALLATION -->
+## Usage
+
+1. Retrieve COVID data
    ```sh
    covid <- pull_covid_data("2020-09-30", "2020-10-30")
    ```
-3. Create historic charts
+2. Create historic charts
    ```sh
    covid_cases_graph("2020-03-30", "2020-08-30",  per100k = TRUE)
    ```
-4. Generate future trends
+3. Generate future trends
    ```sh
    covid_ts_forecast(start_date='2020-01-01', fvar="new_case", state.filter=c("MA","CA"), pred.days = 30)
    ```
+
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
