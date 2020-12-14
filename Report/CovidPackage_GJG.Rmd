@@ -1,0 +1,155 @@
+---
+title: "Covid Analysis Package"
+author: "Gerard Garvan, Dan Golden, Vineenth Kurnala"
+date: "12/13/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(covidDataSummarizer)
+
+```
+
+
+## Introduction
+
+This report will cover the three focuses of this described package:  
+
+* Retrieving COVID data from the CDC
+  * pull_covid_data()
+* Plotting historic cases and deaths
+  * covid_cases_graph()
+  * covid_deaths_graph()
+* Modeling future cases
+  * covid_ts_forecast()
+
+
+## Centers for Disease Control and Prevention Data
+
+The Centers for Disease Control (CDC) makes COVID-19 case and death data available to the public. This data can be accessed via a URL that allows subsets of the large dataset to be downloaded. This service is provided by an application programming interface (API). The API allows public access to COVID-19 data in either CSV or JSON formats.  
+
+A CSV is a standard format for storing data that uses comma separated values. Data fields are separated by commas thus identifying unique entries. JSON is a newer data format that is more flexible than CSV and can handle less structured data. Data for this project will be retrieved in CSV format, and the CSV will be read into an R dataframe for use in analysis.  
+
+The CDC data can be retrieved using three different methods. The first method is simply to download an entire CSV that contains all available data. The second method uses simple additions to the base URL that allow for a minimal amount of data subsetting. The third method, which is the method focused on in this report, is the use of query language within the URL to subset data.  
+
+The API allowing access to CDC COVID-19 data is build using Socrata. The Socrata site includes the following definition of its service, "The Socrata Open Data API allows you to programmatically access a wealth of open data resources from governments, non-profits, and NGOs around the world."  
+
+Rather than downloading an entire dataset, or applying minimal subsetting, Socrata allows richer subsetting of COVID-19 data directly from the download URL. For example specific dataset fields can be selected, beginning and ending time periods can be defined, and data can be filtered to selected states.  
+
+For this project a function was created that can dynamically generate a Socrata compliant URL to query data from the CDC API endpoint. The function generates a URL, retreives COVID-19 data from the URL and formats date fields as dates, and boolean fields as TRUE/FALSE.  
+
+Socrata URLs use Socrata Query Language (SoQL) which is extremely similar to Structured Query Language (SQL), an ANSI and ISO industry standard. The primary SoQL commands used to query and filter COVID data are:  
+
+* query: allows multiple SoQL commands to be run together  
+* select: subset columns from the available fields  
+* where: subset rows from the available data  
+* limit: specify a maximum amount of data to retrieve  
+
+Additional details related to SoQL can be obtained here: https://dev.socrata.com/docs/queries/  
+
+### CDC COVID DATA DESCRIPTION
+
+Field             | Datatype    | Description
+-----             | --------    | -----------
+submission_date   | timestamp   | Date and time record submited
+state             | text        | State where record applies 
+tot_cases         | number      | Total number of cases
+conf_cases        | number      | Total confirmed cases
+prob_cases        | number      | Total probable cases
+new_case          | number      | Number of new cases
+pnew_case         | number      | Number of new probable cases
+tot_death         | number      | Total number of deaths
+conf_death        | number      | Total number of confirmed deaths
+prob_death        | number      | Total number of probable deaths
+new_death         | number      | Number of new deaths
+pnew_death        | number      | Number of new probable deaths
+
+
+Source: United States COVID-19 Cases and Deaths by State over Time https://dev.socrata.com/foundry/data.cdc.gov/9mfq-cb36
+
+
+## Supplemental Datasets
+
+Three additional datasets are included in the package. All three datasets were obtained from publicly accessible government sites. The datasets are included to support additional analysis and data aggregate to better understand the impact of COVID are various populations.
+
+* SAHIE Insurance Data
+  * Census Bureau Description: The U.S. Census Bureau’s Small Area Health Insurance Estimates program produces the only source of data for single-year estimates of health insurance coverage status for all counties in the U.S. by selected economic and demographic characteristics.
+  * https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html
+
+
+* Demographic Data (Race and Ethnicity)
+  * Description: Data from the American Community Survey (ACS) which contains race and ethnicity population data by state. Data is also available at the county level but was included only at the state level to parity match COVID-19 data.
+  * https://covid19.census.gov/datasets/race-and-ethnicity-states
+
+* Demographic Data (Age and Sex)
+  * Description: Data from the American Community Survey (ACS) which contains age and sex population data by state. Data is also available at the county level but was included only at the state level to parity match COVID-19 data.
+  * 2https://covid19.census.gov/datasets/population-by-age-and-sex-states
+
+
+## Retrieve Data
+
+```{r}
+# Example using dates
+pull_covid_data(start_date="2020-06-01", end_date="2020-07-01", limit=5)
+```
+
+```{r}
+# Example using dates and states
+pull_covid_data(start_date="2020-06-01", end_date="2020-07-01", states=c("FL", "GA", "NY"), limit=5)
+```
+
+```{r}
+# Example using dates and states and fields
+pull_covid_data(start_date="2020-06-01", end_date="2020-07-01", 
+                states=c("FL", "GA", "NY"), 
+                fields=c("submission_date", "state", "tot_cases", "tot_death"), limit=10)
+```
+
+## Plots
+
+The two plot functions covid_cases_graph(start_date,end_date) and covid_deaths_graph(start_date,end_date) give graphical summaries over the time specified.
+
+covid_cases_graph(start_date,end_date) plots the tsix states that had the largest number of new cases at the end date( essentially x= date and y= number of new 
+COVID cases).
+
+Similarly covid_deaths_graph(start_date,end_date) plots the six states that had the largest number of new deaths at the end date (x= date and y=number of new deaths due to COVID). 
+
+Both graph functions also have an option to report cases or deaths adjusting for population, i.e. cases per 100,000,000 people or deaths per 100,000,000 people. 
+```{r}
+#Example of covid_cases_graph
+Thanksgiving2020<-"2020-11-19"
+today<-Sys.Date()
+covid_cases_graph(start_date = Thanksgiving2020,end_date = today,per100k = T) 
+
+#example of covid_deaths_graph
+covid_deaths_graph("2020-11-01","2020-12-01",per100k = T)
+
+```
+
+
+## Time Series
+
+Example time series
+
+```{r}
+
+```
+
+
+
+## Conclusion
+
+This package provides easy access to the most recent data from the CDC, and provides analysis surrounding COVID cases and deaths. This package is meant to be a tool for COVID researchers to use to obtain data, and to understand COVID trends.
+
+
+## Future Considerations
+
+This package is hosted on Github and thus allows for collaboration among other COVID researchers. The following are additional features that may be included in the package in the future:  
+
+* Incorporate additional supplemental datasets
+* Include functionality to automatically update supplemental datasets
+* Expand the capabilities of historic data plots
+* Include additional historic data plots
+* Include simulation capabilities for COVID time series modeling
+
