@@ -14,11 +14,11 @@ options(warn=-1)
 
 ## Introduction
 
-COVID is a novel pandemic that began impacting the United States in early 2020. There is a wealth of information from various sources regarding cases and deaths, but this information is not always easily accessible or interpretable. This package provides a way for a researcher to obtain COVID data from the CDC, view historic cases and deaths, and model future cases or deaths. Using an R package provides an easy way for researchers to extend functionality using their own code or packages in CRAN.  
+COVID-19 is a novel pandemic that began impacting the United States in early 2020. There is a wealth of information from various sources regarding cases and deaths, but this information is not always easily accessible or interpretable. This package provides a way for a researcher to obtain COVID-19 data from the CDC, view historic cases and deaths, and model future cases or deaths. Using an R package provides an easy way for researchers to extend functionality using their own code or packages in CRAN.  
 
 This report will cover the three primary functions of this package:  
 
-* Retrieving COVID data from the CDC
+* Retrieving COVID-19 data from the CDC
   * pull_covid_data()
 * Plotting historic cases and deaths
   * covid_cases_graph()
@@ -26,6 +26,17 @@ This report will cover the three primary functions of this package:
 * Modeling future cases or deaths
   * covid_ts_forecast()
 
+## Installation instructions
+
+```covidDataSummarizer``` package is available on the following Github page.  
+https://github.com/DrTukey/covidDataSummarizer
+
+Please follow the steps in the order shown below to install and run the package successfully.
+
+1. Run ```remove.packages("covidDataSummarizer")``` if the package is already installed on your machine.
+2. Run ```remotes::install_github("DrTukey/covidDataSummarizer", dependencies = TRUE, build_vignettes = TRUE)```
+3. Restart your R session
+4. Run ```library(covidDataSummarizer)```
 
 ## Centers for Disease Control and Prevention Data
 
@@ -41,7 +52,7 @@ Rather than downloading an entire dataset, or applying minimal subsetting, Socra
 
 For this project a function was created that can dynamically generate a Socrata compliant URL to query data from the CDC API endpoint. The function generates a URL, retreives COVID-19 data from the URL and formats date fields as dates, and boolean fields as TRUE/FALSE.  
 
-Socrata URLs use Socrata Query Language (SoQL) which is extremely similar to Structured Query Language (SQL), an ANSI and ISO industry standard. The primary SoQL commands used to query and filter COVID data are:  
+Socrata URLs use Socrata Query Language (SoQL) which is extremely similar to Structured Query Language (SQL), an ANSI and ISO industry standard. The primary SoQL commands used to query and filter COVID-19 data are:  
 
 * query: allows multiple SoQL commands to be run together  
 * select: subset columns from the available fields  
@@ -50,7 +61,7 @@ Socrata URLs use Socrata Query Language (SoQL) which is extremely similar to Str
 
 Additional details related to SoQL can be obtained here: https://dev.socrata.com/docs/queries/  
 
-### CDC COVID DATA DESCRIPTION
+### CDC COVID-19 DATA DESCRIPTION
 
 Field             | Datatype    | Description
 -----             | --------    | -----------
@@ -73,7 +84,7 @@ Source: United States COVID-19 Cases and Deaths by State over Time https://dev.s
 
 ## Supplemental Datasets
 
-Three additional datasets are included in the package. All three datasets were obtained from publicly accessible government sites. The datasets are included to support additional analysis and data aggregate to better understand the impact of COVID are various populations.
+Three additional datasets are included in the package. All three datasets were obtained from publicly accessible government sites. The datasets are included to support additional analysis and data aggregate to better understand the impact of COVID-19 are various populations.
 
 * SAHIE Insurance Data
   * Census Bureau Description: The U.S. Census Bureau’s Small Area Health Insurance Estimates program produces the only source of data for single-year estimates of health insurance coverage status for all counties in the U.S. by selected economic and demographic characteristics.
@@ -113,9 +124,9 @@ pull_covid_data(start_date="2020-06-01", end_date="2020-07-01",
 The two plot functions covid_cases_graph(start_date,end_date) and covid_deaths_graph(start_date,end_date) give graphical summaries over the time specified.
 
 covid_cases_graph(start_date,end_date) plots the tsix states that had the largest number of new cases at the end date( essentially x= date and y= number of new 
-COVID cases).
+COVID-19 cases).
 
-Similarly covid_deaths_graph(start_date,end_date) plots the six states that had the largest number of new deaths at the end date (x= date and y=number of new deaths due to COVID). 
+Similarly covid_deaths_graph(start_date,end_date) plots the six states that had the largest number of new deaths at the end date (x= date and y=number of new deaths due to COVID-19). 
 
 Both graph functions also have an option to report cases or deaths adjusting for population, i.e. cases per 100,000,000 people or deaths per 100,000,000 people. 
 
@@ -124,10 +135,8 @@ Both graph functions also have an option to report cases or deaths adjusting for
 Thanksgiving2020<-"2020-11-19"
 today<-Sys.Date()
 covid_cases_graph(start_date = Thanksgiving2020,end_date = today,per100k = T) 
-
 #example of covid_deaths_graph
 covid_deaths_graph("2020-11-01","2020-12-01",per100k = T)
-
 ```
 
 ## Time Series Forecasting
@@ -178,23 +187,22 @@ covid_ts_forecast(start_date='2020-04-30', fvar="new_death", model=c("auto.arima
 covid_ts_forecast(start_date='2020-04-30', fvar="new_case", model=c("tbats"), pred.days = 30)
 covid_ts_forecast(start_date='2020-06-01', fvar="new_death", state.filter=c("MA","CA","NY","NJ","IL","TN"), model=c("auto.arima"), pred.days = 7)
 covid_ts_forecast(fvar="new_death",region.filter=c("Midwest","West"),pred.days=20)
-
 ```
 
 
 ## Conclusion
 
-This package provides easy access to the most recent data from the CDC, and provides analysis surrounding COVID cases and deaths. This package is meant to be a tool for COVID researchers to use to obtain data, and to understand and predict COVID trends.
+This package provides easy access to the most recent data from the CDC, and provides analysis surrounding COVID-19 cases and deaths. This package is meant to be a tool for COVID-19 researchers to use to obtain data, and to understand and predict COVID-19 trends.
 
 
 ## Future Considerations
 
-This package is hosted on Github and thus allows for collaboration among other COVID researchers. The following are additional features that may be included in the package in the future:  
+This package is hosted on Github and thus allows for collaboration among other COVID-19 researchers. The following are additional features that may be included in the package in the future:  
 
 * Incorporate additional supplemental datasets
 * Include functionality to automatically update supplemental datasets
 * Expand the capabilities of historic data plots
 * Include additional historic data plots
-* Include simulation capabilities for COVID time series modeling
+* Include simulation capabilities for COVID-19 time series modeling
 * **Selection of forecasting model parameters**: Current function ```covid_ts_forecast``` uses all default arguments in the forecasting models. In the future, some flexibility can be added to choose the model parameters such as choosing a seasonal test, stepwise/non-stepwise selection, stationarity, information criterion to be used, choosing a list of ARIMA models, selection of type of unit root test, allowing drift terms, choosing number of cores for parallel processing, allowing backward compatibility, etc.  
 * **Multivariate timeseries**: Our current function ```covid_ts_forecast``` uses univariate time series. Forecasting new cases, deaths or hospitalizations during a pandemic requires consideration of various factors that affect the virus spread. This allows to predict the future cases in an efficient manner. An extension to this could be implementation of multivariate time series which considers the dependency of a variable not only on its past values but has some dependency on other variables such as economic/social status, living conditions, comorbidities, vaccine administration, age/race/gender groups, usage of masks, social distancing etc. 
