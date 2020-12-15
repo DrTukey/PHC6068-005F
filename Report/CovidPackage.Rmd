@@ -14,6 +14,8 @@ options(warn=-1)
 
 ## Introduction
 
+COVID is a novel pandemic that began impacting the United States in early 2020. There is a wealth of information from various sources regarding cases and deaths, but this information is not always easily accessible or interpretable. This package provides a way for a researcher to obtain COVID data from the CDC, view historic cases and deaths, and model future cases or deaths. Using an R package provides an easy way for researchers to extend functionality using their own code or packages in CRAN.  
+
 This report will cover the three primary functions of this package:  
 
 * Retrieving COVID data from the CDC
